@@ -5,7 +5,7 @@ const Square = ({value, onPress}) => {
 
     return (
         <TouchableOpacity style={styles.square} onPress={onPress}>
-            <Text>{char}</Text>
+            <Text style={styles.text}>{char}</Text>
         </TouchableOpacity>
     )
 }
@@ -15,10 +15,14 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '30px',
-      height: '30px',
+      width: 100,
+      height: 100,
       border: '1px solid red',
     },
+
+    text: {
+        fontSize: 70
+    }
 });
   
 
