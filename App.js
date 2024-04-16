@@ -33,7 +33,7 @@ const App = () => {
   const maxDepth = 10;
   const [board, setBoard] = useState(Array(height).fill().map(() => Array(width).fill(0)));
   const [isPlayingX, setIsPlayingX] = useState(true);
-  const [winner, setWinner] = useState(0);
+  const [winner, setWinner] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(true);
   const [isPlayer1Turn, setIsPlayer1Turn] = useState(true);
 
@@ -53,7 +53,7 @@ const App = () => {
 
   const handlePress = (row, col) => {
     const squares = [...board];
-    if (board[row][col] === 0 && winner === 0) {
+    if (board[row][col] === 0 && winner === null) {
       if (isPlayingX) {
         squares[row][col] = 1;
       } else {
@@ -62,7 +62,7 @@ const App = () => {
       slotSet.delete(row * width + col);
       setBoard(squares);
       const winner = checkWinner(board, row, col);
-      if (winner != 0) {
+      if (winner !== null) {
         setWinner(winner);
         return;
       }
@@ -132,6 +132,9 @@ const App = () => {
     let diagCount = 1;
     let invDiagCount = 1;
     let i = 1;
+    if (slotSet.size === 0) {
+      return 0;
+    }
     while (horizontalCount < squaresToWin && col-i >= 0 && curBoard[row][col-i] == curBoard[row][col]) {
       horizontalCount++;
       i++;
@@ -183,7 +186,7 @@ const App = () => {
     if (invDiagCount == squaresToWin) {
       return curBoard[row][col];
     }
-    return 0;
+    return null;
   }
 
   const handleSelectMode = (is2Players) => {
@@ -198,7 +201,7 @@ const App = () => {
         onSelectMode={handleSelectMode}
       />
       <View>
-        <Text>{winner == 1 ? 'x won' : winner == 2 ? 'o won' : '' }</Text>
+        <Text>{winner === 1 ? 'x won' : winner === 2 ? 'o won' : winner === 0 ? 'Draw' : '' }</Text>
       </View>
       <View>
         <Text>{isPlayer1Turn ? 'Your turn to play' : 'Opponent turn' }</Text>
