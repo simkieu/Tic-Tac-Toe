@@ -92,7 +92,7 @@ const App = () => {
     const availableSquaresCopy = new Set(availableSquares);
     availableSquaresCopy.delete(row*width + col);
     if (isMaximizing) {
-      boardCopy[row][col] = 2;
+      boardCopy[row][col] = 1;
       let bestScore = -1;
       const result = checkWinner(boardCopy, row, col);
       if (result > 0 || depthLeft === 0 || availableSquaresCopy.size === 0) {
@@ -108,7 +108,7 @@ const App = () => {
       boardCopy[row][col] = 0;
       return bestScore;
     } else {
-      boardCopy[row][col] = 1;
+      boardCopy[row][col] = 2;
       let bestScore = 1;
       const result = checkWinner(boardCopy, row, col);
       if (result > 0 || depthLeft === 0 || availableSquaresCopy.size === 0) {
